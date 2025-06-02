@@ -1,0 +1,73 @@
+<odoo>
+  <!-- List view grouped by region -->
+  <record id="view_covid_region_data_list" model="ir.ui.view">
+    <field name="name">covid.region.data.list</field>
+    <field name="model">covid.region.data</field>
+    <field name="arch" type="xml">
+      <list string="COVID-19 Cases by Region" create="false" edit="false" delete="false">
+        <field name="region_name" string="Region"/>
+        <field name="total_cases" string="Total Cases"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form view for single record details -->
+  <record id="view_covid_region_data_form" model="ir.ui.view">
+    <field name="name">covid.region.data.form</field>
+    <field name="model">covid.region.data</field>
+    <field name="arch" type="xml">
+      <form string="COVID-19 Region Data">
+        <sheet>
+          <group>
+            <field name="region_name" readonly="1"/>
+            <field name="date" readonly="1"/>
+            <field name="total_cases" readonly="1"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Form view for date filter wizard -->
+  <record id="view_covid_date_filter_wizard_form" model="ir.ui.view">
+    <field name="name">covid.date.filter.wizard.form</field>
+    <field name="model">covid.date.filter.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Filter by Date Range">
+        <group>
+          <field name="date_start" widget="date"/>
+          <field name="date_end" widget="date"/>
+        </group>
+        <footer>
+          <button string="Apply Filter" type="object" name="apply_filter" class="btn-primary"/>
+          <button string="Cancel" special="cancel" class="btn-secondary"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <!-- Server action to view today's data -->
+  <record id="action_covid_today_data" model="ir.actions.server">
+    <field name="name">View Today's Data</field>
+    <field name="model_id" ref="model_covid_region_data"/>
+    <field name="state">code</field>
+    <field name="code">action = model.view_today_data()</field>
+  </record>
+
+  <!-- Action to open the date filter wizard -->
+  <record id="action_covid_date_filter_wizard" model="ir.actions.act_window">
+    <field name="name">Filter by Date</field>
+    <field name="res_model">covid.date.filter.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+  </record>
+
+  <!-- Main menu COVID-19 Data -->
+  <menuitem id="menu_covid_region_data_root" name="COVID-19 Data" sequence="10" action="action_covid_today_data"/>
+
+  <!-- Submenu to view today's data -->
+  <menuitem id="menu_covid_today_data" name="View Today's Data" parent="menu_covid_region_data_root" action="action_covid_today_data" sequence="5"/>
+
+  <!-- Menu to open the date filter wizard -->
+  <menuitem id="menu_covid_date_filter_wizard" name="Filter by Date" parent="menu_covid_region_data_root" action="action_covid_date_filter_wizard" sequence="10"/>
+</odoo>

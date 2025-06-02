@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_covid_region_data_user,covid.region.data user,model_covid_region_data,,1,1,1,0
+access_covid_date_filter_wizard_user,covid.date.filter.wizard user,model_covid_date_filter_wizard,,1,1,1,1
