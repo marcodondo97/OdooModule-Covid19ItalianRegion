@@ -54,7 +54,9 @@ class CovidDateFilterWizard(models.TransientModel):
             'context': {
                 'search_disable_custom_filters': True,
                 'search_bar_visible': False,
+                'orderby': 'total_cases desc',
                 'group_by': 'region_name',
+
             },
         }
 

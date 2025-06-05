@@ -5,8 +5,6 @@ from odoo import models, fields, api, exceptions, _
 
 _logger = logging.getLogger(__name__)
 
-GITHUB_PROVINCE_URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json"
-
 class CovidRegionData(models.Model):
     _name = 'covid.region.data'
     _description = 'COVID-19 Region Data'
@@ -20,6 +18,19 @@ class CovidRegionData(models.Model):
     _sql_constraints = [
         ('date_region_uniq', 'unique(date, region_name)', 'Duplicate date and region is not allowed!'),
     ]
+
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        # Call the original 'read_group' method from the superclass to get the grouped data
+        result = super().read_group(domain, fields, groupby, offset=offset, limit=limit, orderby=orderby, lazy=lazy)
+
+        # Custom sorting of the grouped results based on specific grouping criteria
+        if (groupby == ['region_name'] or
+                groupby == 'region_name' or
+                (isinstance(groupby, list) and 'region_name' in groupby)):
+            # Sort the resulting grouped records in descending order by 'total_cases' value
+            result.sort(key=lambda r: r.get('total_cases', 0), reverse=True)
+        return result
 
     def open_date_filter_wizard(self):
         return self.env.ref('odoo-covid.action_covid_date_filter_wizard').read()[0]
