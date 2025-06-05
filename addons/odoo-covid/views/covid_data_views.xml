@@ -16,7 +16,7 @@
     <field name="name">covid.region.data.form</field>
     <field name="model">covid.region.data</field>
     <field name="arch" type="xml">
-      <form string="COVID-19 Region Data">
+      <form string="COVID-19 Region Data" create="false">
         <sheet>
           <group>
             <field name="region_name" readonly="1"/>
@@ -35,8 +35,10 @@
     <field name="arch" type="xml">
       <form string="Filter by Date Range">
         <group>
-          <field name="date_start" widget="date"/>
-          <field name="date_end" widget="date"/>
+          <field name="date_start" widget="date"
+                 options="{'datepicker': {'minDate': '2020-02-24'}}"/>
+          <field name="date_end" widget="date"
+                 options="{'datepicker': {'minDate': '2020-02-24'}}"/>
         </group>
         <footer>
           <button string="Apply Filter" type="object" name="apply_filter" class="btn-primary"/>

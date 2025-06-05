@@ -12,7 +12,7 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=myodoo
-    #command: ["odoo", "-d", "odoo", "-u", "odoo-covid"]
+    # command: ["odoo", "-d", "odoo", "-u", "odoo-covid"]
 
   db:
     image: postgres:16
