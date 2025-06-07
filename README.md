@@ -66,7 +66,7 @@ The module exposes an API endpoint at `/api/covid` that accepts the following pa
 
 #### API Documentation
 
-Complete API documentation is available in the [Swagger specification](docs/swagger.yaml).
+Complete API documentation is available in the [Swagger specification](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/marcodondo97/odoo-covid/main/docs/swagger.yaml).
 
 #### Example cURL Request
 
@@ -76,7 +76,7 @@ curl -X 'GET' 'http://localhost:8069/api/covid?date_start=2020-03-01&date_end=20
 
 This request will return COVID-19 data for the Liguria region between March 1st and March 15th, 2020, sorted by total cases in sorted by date in ascending order.
 
-#### Screenshots
+### Screenshots
 
 <img src="docs/img/Screenshot1.png" width="40%">
 <br>
