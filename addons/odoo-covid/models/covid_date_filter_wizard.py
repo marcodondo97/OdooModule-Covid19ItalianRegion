@@ -1,12 +1,9 @@
 from odoo import models, fields, exceptions, _
 import requests
-import logging
 from datetime import timedelta, date
 
-_logger = logging.getLogger(__name__)
-
 GITHUB_PROVINCE_URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json"
-MIN_DATE = date(2020, 2, 24)  # February 24th, 2020
+
 
 class CovidDateFilterWizard(models.TransientModel):
     _name = 'covid.date.filter.wizard'
@@ -15,9 +12,13 @@ class CovidDateFilterWizard(models.TransientModel):
     date_start = fields.Date(string='Start Date', required=True)
     date_end = fields.Date(string='End Date', required=True)
 
-    def _fetch_and_store_data_from_json(self, date_str, json_data):
-        # Extracts data for the specified date and saves totals by region
-        covid_data_model = self.env['covid.region.data']
+    MIN_DATE = date(2020, 2, 24)
+    GITHUB_URL = GITHUB_PROVINCE_URL
+
+    @classmethod
+    def fetch_and_store_date(cls, env, date_str, json_data):
+        # Shared method for inserting data into covid.region.data
+        covid_data_model = env['covid.region.data']
         region_totals = {}
 
         for item in json_data:
@@ -37,13 +38,11 @@ class CovidDateFilterWizard(models.TransientModel):
                 })
                 count += 1
             except exceptions.ValidationError:
-                pass  # Ignore duplicates
+                pass
 
-        _logger.info(f"{count} regions loaded for {date_str}")
         return count > 0
 
     def _build_action(self, domain):
-        # Returns the action to open the filtered view
         return {
             'type': 'ir.actions.act_window',
             'name': 'Filtered COVID Data',
@@ -60,25 +59,19 @@ class CovidDateFilterWizard(models.TransientModel):
         }
 
     def apply_filter(self):
-        # Applies the date filter and loads missing data if needed
-        # Validations
-        if (self.date_start and self.date_start < MIN_DATE) or (self.date_end and self.date_end < MIN_DATE):
+        if (self.date_start and self.date_start < self.MIN_DATE) or (self.date_end and self.date_end < self.MIN_DATE):
             raise exceptions.UserError(_("Data is available only from February 24th, 2020."))
 
         if self.date_end < self.date_start:
             raise exceptions.UserError(_("End date cannot be earlier than start date."))
 
-        # Prepare domain
         domain = [('date', '>=', self.date_start), ('date', '<=', self.date_end)]
 
-        # Download and parse JSON data
         try:
-            res = requests.get(GITHUB_PROVINCE_URL)
+            res = requests.get(self.GITHUB_URL)
             res.raise_for_status()
             all_data = res.json()
-            _logger.info("JSON data successfully downloaded")
         except Exception as e:
-            _logger.warning(f"Error downloading data from GitHub: {e}")
             return self._build_action(domain)
 
         covid_data_model = self.env['covid.region.data']
@@ -88,11 +81,10 @@ class CovidDateFilterWizard(models.TransientModel):
         while current_date <= self.date_end:
             date_str = current_date.strftime('%Y-%m-%d')
             if not covid_data_model.search_count([('date', '=', date_str)]):
-                if self._fetch_and_store_data_from_json(date_str, all_data):
+                if self.fetch_and_store_date(self.env, date_str, all_data):
                     data_loaded = True
             current_date += timedelta(days=1)
 
-        # Notifications
         if data_loaded:
             self.env['bus.bus']._sendone(self.env.user.partner_id, 'simple_notification', {
                 'title': _('COVID Data'),

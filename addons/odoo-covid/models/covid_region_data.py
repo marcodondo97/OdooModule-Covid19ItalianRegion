@@ -1,9 +1,6 @@
-import logging
 import requests
 from datetime import date
 from odoo import models, fields, api, exceptions, _
-
-_logger = logging.getLogger(__name__)
 
 class CovidRegionData(models.Model):
     _name = 'covid.region.data'
@@ -32,7 +29,6 @@ class CovidRegionData(models.Model):
             # Use 'get' with default 0 to handle cases where 'total_cases' key might be missing
             result.sort(key=lambda r: r.get('total_cases', 0), reverse=True)
 
-        # Return the (potentially) sorted list of grouped records
         return result
 
     def view_today_data(self):

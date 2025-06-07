@@ -11,8 +11,8 @@
     'auto_install': False,
     'depends': ['base'],
     'data': [
+        'views/covid_region_views.xml',
         'security/ir.model.access.csv',
-        'views/covid_data_views.xml',
     ],
     'images': [
         'static/description/icon.png',
