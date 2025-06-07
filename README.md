@@ -28,7 +28,7 @@ The module offers the following features:
 - **Data Import**: Automatically retrieves COVID-19 data from the official Italian Civil Protection repository
 - **Date Filter**: Allows filtering data by specific date ranges
 - **Region View**: Shows aggregated data by Italian region
-- **Custom Sorting**: Supports sorting data by total cases, region name, or date
+- **Custom Sorting**: Sorting data by total cases
 - **REST API**: Provides an API endpoint to access COVID-19 data from external applications
 
 ### Requirements
@@ -42,13 +42,6 @@ The module offers the following features:
 1. Clone this repository into the Odoo addons folder
 2. Update the applications list in Odoo
 3. Search for and install the "Covid-19 italian region" module
-
-#### Installation via ZIP file
-1. Download the `odoo-covid.zip` file
-2. In your Odoo instance, go to Apps menu
-3. Click on the "Upload Module" button
-4. Select the downloaded `odoo-covid.zip` file
-5. Click "Install" on the "Covid-19 italian region" module
 
 #### Docker Demo
 For a quick demo without installing Odoo on your system:
@@ -73,7 +66,7 @@ The module exposes an API endpoint at `/api/covid` that accepts the following pa
 
 #### API Documentation
 
-Complete API documentation is available in the [Swagger specification](swagger.yaml).
+Complete API documentation is available in the [Swagger specification](docs/swagger.yaml).
 
 #### Example cURL Request
 
@@ -81,7 +74,19 @@ Complete API documentation is available in the [Swagger specification](swagger.y
 curl -X 'GET' 'http://localhost:8069/api/covid?date_start=2020-03-01&date_end=2020-03-15&region=Liguria&sort_by=date&sort_order=asc'
 ```
 
-This request will return COVID-19 data for the Liguria region between March 1st and March 15th, 2020, sorted by total cases in descending order.
+This request will return COVID-19 data for the Liguria region between March 1st and March 15th, 2020, sorted by total cases in sorted by date in ascending order.
+
+#### Screenshots
+
+<img src="docs/img/Screenshot1.png" width="40%">
+<br>
+<img src="docs/img/Screenshot2.png" width="40%">
+<br>
+<img src="docs/img/Screenshot3.png" width="40%">
+<br>
+<img src="docs/img/Screenshot4.png" width="40%">
+<br>
+<img src="docs/img/Screenshot5.png" width="40%">
 
 ### License
 
