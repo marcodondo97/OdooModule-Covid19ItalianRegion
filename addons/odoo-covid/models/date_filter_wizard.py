@@ -56,23 +56,14 @@ class CovidDateFilterWizard(models.TransientModel):
                 'search_bar_visible': False,
                 'orderby': 'total_cases desc',
                 'group_by': 'region_name',
-
             },
         }
 
     def apply_filter(self):
         # Applies the date filter and loads missing data if needed
         # Validations
-        if self.date_start and self.date_start < MIN_DATE:
-            raise exceptions.UserError(_(
-                "Data is available only from February 24th, 2020. "
-                "Please select a start date on or after this date."
-            ))
-
-        if self.date_end and self.date_end < MIN_DATE:
-            raise exceptions.UserError(_(
-                "End date cannot be earlier than February 24th, 2020."
-            ))
+        if (self.date_start and self.date_start < MIN_DATE) or (self.date_end and self.date_end < MIN_DATE):
+            raise exceptions.UserError(_("Data is available only from February 24th, 2020."))
 
         if self.date_end < self.date_start:
             raise exceptions.UserError(_("End date cannot be earlier than start date."))

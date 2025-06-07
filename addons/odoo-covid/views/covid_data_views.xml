@@ -35,10 +35,8 @@
     <field name="arch" type="xml">
       <form string="Filter by Date Range">
         <group>
-          <field name="date_start" widget="date"
-                 options="{'datepicker': {'minDate': '2020-02-24'}}"/>
-          <field name="date_end" widget="date"
-                 options="{'datepicker': {'minDate': '2020-02-24'}}"/>
+          <field name="date_start" widget="date"/>
+          <field name="date_end" widget="date"/>
         </group>
         <footer>
           <button string="Apply Filter" type="object" name="apply_filter" class="btn-primary"/>
@@ -64,8 +62,8 @@
     <field name="target">new</field>
   </record>
 
-  <!-- Main menu COVID-19 Data -->
-  <menuitem id="menu_covid_region_data_root" name="COVID-19 Data" sequence="10" action="action_covid_today_data"/>
+  <!-- Main menu -->
+  <menuitem id="menu_covid_region_data_root" name="COVID-19 italian regions" sequence="10" action="action_covid_today_data"/>
 
   <!-- Submenu to view today's data -->
   <menuitem id="menu_covid_today_data" name="View Today's Data" parent="menu_covid_region_data_root" action="action_covid_today_data" sequence="5"/>

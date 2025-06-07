@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Covid-19 Italian Region API
+  description: |
+    API for accessing COVID-19 data for Italian regions. This API allows filtering by date range and region, 
+    as well as specifying sorting criteria. The data is sourced from the official Italian Civil Protection 
+    Department GitHub repository.
+  version: 1.0.0
+  contact:
+    name: Marco Dondo
+    url: https://github.com/marcodondo97/odoo-covid
+servers:
+  - url: http://localhost:8069
+    description: Local development server
+paths:
+  /api/covid:
+    get:
+      summary: Get COVID-19 region data
+      description: |
+        Retrieves COVID-19 data for Italian regions with filtering and sorting capabilities.
+        The API uses the same logic as the date filter wizard to fetch and filter data.
+        Data is available from February 24th, 2020 onwards.
+      parameters:
+        - name: date_start
+          in: query
+          required: true
+          description: Start date in YYYY-MM-DD format (must be on or after February 24th, 2020)
+          schema:
+            type: string
+            format: date
+            example: "2020-03-01"
+        - name: date_end
+          in: query
+          required: true
+          description: End date in YYYY-MM-DD format (must be on or after February 24th, 2020 and not earlier than start date)
+          schema:
+            type: string
+            format: date
+            example: "2020-03-15"
+        - name: region
+          in: query
+          required: false
+          description: Region name to filter by (e.g., Lombardia, Veneto)
+          schema:
+            type: string
+            example: "Lombardia"
+        - name: sort_by
+          in: query
+          required: false
+          description: Field to sort by
+          schema:
+            type: string
+            enum: [date, region_name, total_cases]
+            default: date
+        - name: sort_order
+          in: query
+          required: false
+          description: Sort order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Record ID
+                      example: 1
+                    date:
+                      type: string
+                      format: date
+                      description: Date of the record
+                      example: "2020-03-01"
+                    region_name:
+                      type: string
+                      description: Name of the Italian region
+                      example: "Lombardia"
+                    total_cases:
+                      type: integer
+                      description: Total number of COVID-19 cases for the region on the given date
+                      example: 984
+              example:
+                - id: 1
+                  date: "2020-03-01"
+                  region_name: "Lombardia"
+                  total_cases: 984
+                - id: 2
+                  date: "2020-03-01"
+                  region_name: "Veneto"
+                  total_cases: 263
+                - id: 3
+                  date: "2020-03-01"
+                  region_name: "Emilia-Romagna"
+                  total_cases: 285
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+              examples:
+                missing_dates:
+                  value:
+                    error: "Both date_start and date_end parameters are required"
+                invalid_date_format:
+                  value:
+                    error: "Invalid date format. Use YYYY-MM-DD format (e.g., 2020-02-24)"
+                date_before_min_date:
+                  value:
+                    error: "Data is available only from February 24th, 2020."
+                end_date_before_start_date:
+                  value:
+                    error: "End date cannot be earlier than start date."
+                unexpected_error:
+                  value:
+                    error: "An unexpected error occurred: [error details]"
+components:
+  schemas:
+    CovidRegionData:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Record ID
+        date:
+          type: string
+          format: date
+          description: Date of the record
+        region_name:
+          type: string
+          description: Name of the Italian region
+        total_cases:
+          type: integer
+          description: Total number of COVID-19 cases for the region on the given date
+      required:
+        - date
+        - region_name
+        - total_cases

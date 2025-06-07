@@ -29,13 +29,14 @@ class CovidRegionData(models.Model):
                 groupby == 'region_name' or
                 (isinstance(groupby, list) and 'region_name' in groupby)):
             # Sort the resulting grouped records in descending order by 'total_cases' value
+            # Use 'get' with default 0 to handle cases where 'total_cases' key might be missing
             result.sort(key=lambda r: r.get('total_cases', 0), reverse=True)
+
+        # Return the (potentially) sorted list of grouped records
         return result
 
-    def open_date_filter_wizard(self):
-        return self.env.ref('odoo-covid.action_covid_date_filter_wizard').read()[0]
-
     def view_today_data(self):
+        # Reuses the wizard to show today's data
         return self.env['covid.date.filter.wizard'].with_context(
             default_date_start=date.today(),
             default_date_end=date.today()

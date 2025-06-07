@@ -1,5 +1,5 @@
 {
-    'name': "COVID-19 Italy Regions Data",
+    'name': "Covid-19 italian region",
     'summary': "Import and display updated SARS-CoV-2 data by Italian region",
     'version': '1.0.1',
     'author': 'Marco Dondo',
