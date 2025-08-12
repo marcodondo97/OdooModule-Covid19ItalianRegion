@@ -88,11 +88,3 @@ This request will return COVID-19 data for the Liguria region between March 1st 
 <br>
 <img src="docs/img/Screenshot5.png" width="40%">
 
-### License
-
-This module is distributed under the LGPL-3 license.
-
-### Author
-
-Developed by Marco Dondo.
-GitHub Repository: [https://github.com/marcodondo97/odoo-covid](https://github.com/marcodondo97/odoo-covid)
