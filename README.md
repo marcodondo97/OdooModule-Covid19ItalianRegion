@@ -76,7 +76,7 @@ curl -X 'GET' 'http://localhost:8069/api/covid?date_start=2020-03-01&date_end=20
 
 This request will return COVID-19 data for the Liguria region between March 1st and March 15th, 2020, sorted by total cases in sorted by date in ascending order.
 
-### Screenshots
+### Result
 
 <img src="docs/img/Screenshot1.png" width="40%">
 <br>
