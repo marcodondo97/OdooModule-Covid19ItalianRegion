@@ -49,7 +49,7 @@ curl -X 'GET' 'http://localhost:8069/api/covid?date_start=2020-03-01&date_end=20
 Complete API documentation is available in the [Swagger specification](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/marcodondo97/odoo-covid/main/docs/swagger.yaml).
 
 
-### Getting Start
+### Getting Started
 
 For a quick Docker demo without installing Odoo on your system, make sure Docker and Docker Compose are installed. Then run:
 ```bash
