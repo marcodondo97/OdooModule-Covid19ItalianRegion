@@ -1,4 +1,4 @@
-# Odoo COVID-19 Italian Region
+# Covid19 Italian Region Odoo Module
 
 ## Introduction
 
