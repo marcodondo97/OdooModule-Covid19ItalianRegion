@@ -31,29 +31,6 @@ The module offers the following features:
 - **Custom Sorting**: Sorting data by total cases
 - **REST API**: Provides an API endpoint to access COVID-19 data from external applications
 
-### Requirements
-
-- Odoo 18
-- Python module `requests`
-
-### Installation
-
-#### Standard Installation
-1. Clone this repository into the Odoo addons folder
-2. Update the applications list in Odoo
-3. Search for and install the "Covid-19 italian region" module
-
-#### Docker Demo
-For a quick demo without installing Odoo on your system:
-
-1. Clone this repository
-2. Make sure you have Docker and Docker Compose installed
-3. Run `docker-compose up` in the repository root
-4. Access Odoo at http://localhost:8069
-5. Create a new database and install the "Covid-19 italian region" module
-
-The Docker setup automatically mounts the local addons directory, allowing you to see your changes immediately.
-
 ### API Usage
 
 The module exposes an API endpoint at `/api/covid` that accepts the following parameters:
@@ -64,19 +41,25 @@ The module exposes an API endpoint at `/api/covid` that accepts the following pa
 - `sort_by`: Field for sorting ('date', 'region_name', 'total_cases')
 - `sort_order`: Sort order ('asc' or 'desc')
 
-#### API Documentation
-
-Complete API documentation is available in the [Swagger specification](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/marcodondo97/odoo-covid/main/docs/swagger.yaml).
-
-#### Example cURL Request
-
 ```bash
 curl -X 'GET' 'http://localhost:8069/api/covid?date_start=2020-03-01&date_end=2020-03-15&region=Liguria&sort_by=date&sort_order=asc'
 ```
 
-This request will return COVID-19 data for the Liguria region between March 1st and March 15th, 2020, sorted by total cases in sorted by date in ascending order.
 
-### Result
+Complete API documentation is available in the [Swagger specification](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/marcodondo97/odoo-covid/main/docs/swagger.yaml).
+
+
+### Getting Start
+
+For a quick Docker demo without installing Odoo on your system, make sure Docker and Docker Compose are installed. Then run:
+```bash
+git clone https://github.com/yourusername/covid19-italian-region.git
+cd covid19-italian-region
+docker-compose up
+```
+
+
+## Result
 
 <img src="docs/img/Screenshot1.png" width="40%">
 <br>
