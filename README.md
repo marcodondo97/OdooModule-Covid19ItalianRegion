@@ -54,7 +54,7 @@ Complete API documentation is available in the [Swagger specification](https://p
 For a quick Docker demo without installing Odoo on your system, make sure Docker and Docker Compose are installed. Then run:
 ```bash
 git clone https://github.com/marcodondo97/OdooModule-Covid19ItalianRegion.git
-cd covid19-italian-region
+cd OdooModule-Covid19ItalianRegion
 docker-compose up
 ```
 
