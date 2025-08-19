@@ -53,7 +53,7 @@ Complete API documentation is available in the [Swagger specification](https://p
 
 For a quick Docker demo without installing Odoo on your system, make sure Docker and Docker Compose are installed. Then run:
 ```bash
-git clone https://github.com/yourusername/covid19-italian-region.git
+git clone https://github.com/marcodondo97/OdooModule-Covid19ItalianRegion.git
 cd covid19-italian-region
 docker-compose up
 ```
@@ -61,13 +61,19 @@ docker-compose up
 
 ## Result
 
-<img src="docs/img/Screenshot1.png" width="40%">
-<br>
-<img src="docs/img/Screenshot2.png" width="40%">
-<br>
-<img src="docs/img/Screenshot3.png" width="40%">
-<br>
-<img src="docs/img/Screenshot4.png" width="40%">
-<br>
-<img src="docs/img/Screenshot5.png" width="40%">
+<div align="center">
+<table>
+  <tr>
+    <td align="center"><img src="docs/img/Screenshot1.png" width="100%"/></td>
+    <td align="center"><img src="docs/img/Screenshot2.png" width="100%"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/img/Screenshot3.png" width="100%"/></td>
+    <td align="center"><img src="docs/img/Screenshot4.png" width="100%"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/img/Screenshot5.png" width="100%"/></td>
+  </tr>
+</table>
+</div>
 
